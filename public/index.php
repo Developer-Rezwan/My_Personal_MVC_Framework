@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__."/../vendor/autoload.php";
+
 use App\core\Application;
+use App\Controllers\ContactController;
 
 $app = new Application(dirname(__DIR__));
 
-$app->route->get('/',"welcome");
-$app->route->get('/contact',"contact");
+$app->route->get('/',[ContactController::class,"home"]);
+$app->route->get('/contact',[ContactController::class,"contact"]);
 
-$app->route->post('/contact',function (){
-    return print_r($_POST);
-});
+//$app->route->post('/contact',[ContactController::class,"contact"]);
 
 $app->run();

@@ -49,17 +49,22 @@ class Router
             // specific the type of $callback is views filename,it will execute from here
             return $this->renderView($callback);
         }
+        if(is_array($callback)){
+            $arr = new $callback[0]();
+            $ar = $callback[1];
+            return $arr->$ar();
+        }
 
         return call_user_func($callback);
 
     }
 
-    public function renderView($view)
+        public function renderView($view , $data = [])
     {
         //if have any layouts,it will implode by the layoutsVeiw();
         $layouts = $this->layoutsView();
         //it will execute the pag
-        $renderview = $this->renderOnlyView($view);
+        $renderview = $this->renderOnlyView($view,$data);
         //it will implode the page in the layout stracture
         echo str_replace("@yield",$renderview,$layouts);
         //if do not have any layout . have only page it will execute from here
@@ -73,8 +78,12 @@ class Router
         return ob_get_clean();
     }
 
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view , $data)
     {
+
+        foreach ($data as $key => $value) {
+            $$key = $value;
+        }
         ob_start();
         require_once Application::$Root_Dir."/Views/$view.php";
         return ob_get_clean();

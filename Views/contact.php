@@ -1,4 +1,4 @@
-<form action="/" method="post">
+<form action="/contact" method="post">
     <label for="email">Eamil</label>
     <input type="text" name="email">
     <label for="email">Username</label>
