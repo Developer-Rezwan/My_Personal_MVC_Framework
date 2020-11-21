@@ -20,10 +20,27 @@ class Request
        }
    }
 
-   public function getMethod()
+   public function method()
    {
        // $_SERVER['REQUEST_METHOD'] will specified the method like get/post
        return strtolower($_SERVER['REQUEST_METHOD']);
    }
-
+   // this function is specially for the data security and remove the unwanted chars or sytax from route
+   public function requested_data()
+   {
+       $data = [];
+     if($this->method() === "get")
+     {
+           foreach($_GET as $key => $value){
+               $data[$key] = filter_input(INPUT_GET , $key , FILTER_SANITIZE_SPECIAL_CHARS);
+           }
+       }
+     if($this->method() === "post")
+     {
+           foreach($_POST as $key => $value){
+               $data[$key] = filter_input(INPUT_POST , $key , FILTER_SANITIZE_SPECIAL_CHARS);
+           }
+       }
+     return $data;
+   }
 }

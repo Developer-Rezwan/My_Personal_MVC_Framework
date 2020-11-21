@@ -34,7 +34,7 @@ class Router
     public function resolve()
     {
         // This recieve the method name from the url
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         // This recieve the path name from the url
         $path = $this->request->getPath();
         // This will do the spefication of path and function or string from the index.php or given route name
@@ -50,12 +50,10 @@ class Router
             return $this->renderView($callback);
         }
         if(is_array($callback)){
-            $arr = new $callback[0]();
-            $ar = $callback[1];
-            return $arr->$ar();
+            $callback[0]= new $callback[0]();
         }
 
-        return call_user_func($callback);
+        return call_user_func($callback , $this->request);
 
     }
 
