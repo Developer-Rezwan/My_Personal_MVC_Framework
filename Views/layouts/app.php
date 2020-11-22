@@ -11,13 +11,18 @@
     body{
         font-family: Arial;
     }
-    #first{
+    nav#first{
         color: tomato;
-        padding: 10px;
+        padding: 5px;
         background: aqua;
     }
     ul li{
         list-style: none;
+        display:inline;
+        padding: 10px;
+    }
+    ul li a{
+        text-decoration: none;
     }
     .container{
         max-width:90%;

@@ -59,20 +59,29 @@ class Router
 
         public function renderView($view , $data = [])
     {
-        //if have any layouts,it will implode by the layoutsVeiw();
-        $layouts = $this->layoutsView();
         //it will execute the pag
         $renderview = $this->renderOnlyView($view,$data);
-        //it will implode the page in the layout stracture
-        echo str_replace("@yield",$renderview,$layouts);
-        //if do not have any layout . have only page it will execute from here
-         require_once Application::$Root_Dir."/Views/$view.php";
+        $pattern = "/@extends\(\"\w+\/\w+\/?(\w+)?\"\)/i";
+
+        if(preg_match($pattern, $renderview) == 1){
+
+            $position = strpos($renderview,")");
+            $i = $position - 11;
+            $newlayouts = substr($renderview,10,$i);
+
+            $layouts = $this->layoutsView($newlayouts);
+            $renderview = preg_replace($pattern,"",$renderview);
+            return str_replace("@yield" , $renderview , $layouts);
+        }else{
+           echo $renderview;
+        }
+
     }
 
-    protected function layoutsView()
+    protected function layoutsView($layouts)
     {
         ob_start();
-        require_once Application::$Root_Dir."/Views/layouts/app.php";
+        require_once Application::$Root_Dir."/Views/$layouts.php";
         return ob_get_clean();
     }
 
