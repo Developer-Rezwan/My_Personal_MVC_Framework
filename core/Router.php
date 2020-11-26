@@ -50,7 +50,7 @@ class Router
             return $this->renderView($callback);
         }
         if(is_array($callback)){
-            $callback[0]= new $callback[0]();
+            $callback[0]= new $callback[0](); //if use $this in the function .. Then it will execute
         }
 
         return call_user_func($callback , $this->request);
@@ -59,21 +59,40 @@ class Router
 
         public function renderView($view , $data = [])
     {
-        //it will execute the pag
+
         $renderview = $this->renderOnlyView($view,$data);
-        $pattern = "/@extends\(\"\w+\/\w+\/?(\w+)?\"\)/i";
 
-        if(preg_match($pattern, $renderview) == 1){
+        $layouts_pattern = "/@extends\(\"?\'?\w+\/\w+\/?(\w+)?\"?\'?\)/i"; // Find the @extends(...) content
 
-            $position = strpos($renderview,")");
-            $i = $position - 11;
-            $newlayouts = substr($renderview,10,$i);
+        if(preg_match($layouts_pattern, $renderview) == 1){
 
-            $layouts = $this->layoutsView($newlayouts);
-            $renderview = preg_replace($pattern,"",$renderview);
-            return str_replace("@yield" , $renderview , $layouts);
+            $start = strpos($renderview , "@extends(" )+10; //find position of @extends from the page.. and minus @extends from the page
+            $end = strpos($renderview,")" , $start)-1; // find the
+            $i = $end - $start;
+            $newlayouts = substr($renderview,$start,$i); //layouts directory like (layouts/app)
+
+            $layouts = $this->layoutsView($newlayouts); // Pass the layouts path like (layouts/app.php)
+            $renderview = preg_replace($layouts_pattern,"",$renderview); //this is the page without @extends(....)
+
+            $template = $this->templateView($renderview,$layouts); // pass the layouts and pass information for mastaring
+
+            $keys = [];
+            $values = [];
+            foreach ($template as $value){
+                foreach ($value as $key => $value){
+                  array_push($keys , $key);
+                  array_push($values,$value);
+                }
+            }
+           $viewer =  str_replace($keys, $values ,$layouts);
+            if(preg_match("/@yield\(\"?\'?\w+\-?\w+?\_?(\w+)?\"?\'?\)/i", $viewer) == 1){
+                return preg_replace("/@yield\(\"?\'?\w+\-?\w+?\_?(\w+)?\"?\'?\)/i","",$viewer);
+            }else{
+              return  $viewer ;
+            }
+
         }else{
-           echo $renderview;
+           return $renderview;
         }
 
     }
@@ -95,5 +114,13 @@ class Router
         require_once Application::$Root_Dir."/Views/$view.php";
         return ob_get_clean();
     }
+
+    private function templateView($template,$layouts)
+    {
+        Application::$app->blad->bladeTemplate($template , $layouts);
+        Application::$app->blad->bladeLayouts($layouts);
+        return Application::$app->blad->bladeResolve();
+    }
+
 
 }

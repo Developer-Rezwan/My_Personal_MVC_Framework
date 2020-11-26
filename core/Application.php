@@ -9,6 +9,7 @@ class Application
     public Router $route;
     public Response $response;
     public static Application $app;
+    public Blade $blad;
 
     public function __construct($root_dir)
     {
@@ -19,6 +20,7 @@ class Application
         $this->response = new Response();
         //This is a system of variable passing with a class
         $this->route = new Router($this->request);
+        $this->blad = new Blade();
     }
 
     public function run()
