@@ -25,8 +25,11 @@ class Request
        // $_SERVER['REQUEST_METHOD'] will specified the method like get/post
        return strtolower($_SERVER['REQUEST_METHOD']);
    }
-   // this function is specially for the data security and remove the unwanted chars or sytax from route
-   public function requested_data()
+
+
+   /*** Controller Controll ***/
+
+   public function requested_data() // this is for the controller data passing function by post or get method
    {
        $data = [];
      if($this->method() === "get")
@@ -42,5 +45,9 @@ class Request
            }
        }
      return $data;
+   }
+
+   public function validation(){
+        return Application::$app->rule->request($this->requested_data());
    }
 }

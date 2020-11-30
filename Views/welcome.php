@@ -7,6 +7,6 @@ Welcome to home page
 @section("content")
 
 Welcome To my Website
-I'm from controller <?php print_r($Fullname['name']); ?>
+I'm from controller <?= $Fullname['name']; ?>
 
 @endsection

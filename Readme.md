@@ -1,23 +1,77 @@
+# Start the Application :
+
+Go to the ***public/*** folder and then open CMD or any command promt and
+Type
+```
+  php -S localhost:8080 
+```
+# Routing :
+Go To The **_Routes/web.php_**
+```
+<?php
+
+use App\core\Application;
+use Facade\Route;
+
+use \app\Controllers\homeController;
+use \app\Controllers\LoginController;
+use \app\Controllers\RegisterController;
+
+
+Route::get('/','welcome');
+Route::get('/profile',function (){
+    return Application::$app->route->renderView("profile");
+});
+
+Route::get('/login',[LoginController::class , "login"]);
+Route::post('/login',[LoginController::class , "loginControl"]);
+
+Route::get('/register',[RegisterController::class , "register"]);
+Route::post('/register',[RegisterController::class , "registerControl"]);
+
+```
 #layouts and Template mastaring ...
 
-1. Layouts mastaring ... 
-       @yield("name-of-section");
-
-2. Template mastaring .. 
-      @extends("layouts/app")  //any type of path are acceptable.. 
+1 . Write in the Layouts file where you want to dynamic
+``` 
+       @yield("name-of-section") //For Example @yield("main-content")
+```
+2 . Write in the Template file
+``` 
+      @extends("path of the layouts")  //Like @extends("layouts/app") 
 
       @section("name-of-section")
-	// type your html/css/js code
+	// type your html/css/js code or an
       @endsection
+```
+# Useful methods for the Controller :
+1 . _Must extends **Controller** class in your class_
+  
+Example of a ControllerCalss .. 
+```
 
-# Useful methods of Controller
-3. Contoller method.....
-      ** Must extends Controller class in your class
+<?php
+
+
+namespace app\Controllers;
+
+
+class homeController extends Controller
+{
+
+    public function home(){
+        $this->data=[
+            "Fullname" => ["name" => "Rezwan","lname" => "Hossain"],
+            "Subject" => ["Laravel" , "php"]
+        ];
+        return $this->view("welcome",$this->data);
+    }
+
+}
+```
 	
-      1.View frontend part...
-	$this->view("welcome") //Which is views/welcome.php
-
-      2. $variable passing..
+You Can Also Pass Your Variable Like This..
+```
 	 $data = [];
 	 $data["name_of_variable"] = "your string or anything";
 		
@@ -38,10 +92,12 @@
 	];
          
         $this->view("welcome", $data);
-
-## Recieve Data in front page 
-	<?= $name_of_variable; ?>
-	OR,
-	<?= $name; ?>
-	OR,
-	<?= $name["First_name"]; ?>
+```
+# Recieve Data from the view or front-page
+```
+<?= $name_of_variable; ?>
+OR,
+<?= $name; ?>
+OR,
+<?= $name["First_name"]; ?>
+```

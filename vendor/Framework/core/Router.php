@@ -53,7 +53,7 @@ class Router
             $callback[0]= new $callback[0](); //if use $this in the function .. Then it will execute
         }
 
-        return call_user_func($callback , $this->request);
+        return call_user_func($callback , new \app\Requests\Request() ,$this->request);
 
     }
 
