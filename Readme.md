@@ -15,22 +15,19 @@ use Facade\Route;
 
 use \app\Controllers\homeController;
 use \app\Controllers\LoginController;
-use \app\Controllers\RegisterController;
 
 
 Route::get('/','welcome');
-Route::get('/profile',function (){
+Route::get('/profile',function (){Start the Application :
+
     return Application::$app->route->renderView("profile");
 });
 
 Route::get('/login',[LoginController::class , "login"]);
 Route::post('/login',[LoginController::class , "loginControl"]);
 
-Route::get('/register',[RegisterController::class , "register"]);
-Route::post('/register',[RegisterController::class , "registerControl"]);
-
 ```
-#layouts and Template mastaring ...
+# layouts and Template mastaring ...
 
 1 . Write in the Layouts file where you want to dynamic
 ``` 

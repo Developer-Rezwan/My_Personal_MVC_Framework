@@ -1,5 +1,6 @@
 <?php
 namespace App\core;
+use App\FormValidation\FormRequest;
 
 class Request
 {
@@ -47,7 +48,4 @@ class Request
      return $data;
    }
 
-   public function validation(){
-        return Application::$app->rule->request($this->requested_data());
-   }
 }

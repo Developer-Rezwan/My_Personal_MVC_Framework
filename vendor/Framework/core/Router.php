@@ -71,7 +71,7 @@ class Router
             $i = $end - $start;
             $newlayouts = substr($renderview,$start,$i); //layouts directory like (layouts/app)
 
-            $layouts = $this->layoutsView($newlayouts); // Pass the layouts path like (layouts/app.php)
+            $layouts = $this->layoutsView($newlayouts); // Pass the layouts path like (layouts/app.blade.php)
             $renderview = preg_replace($layouts_pattern,"",$renderview); //this is the page without @extends(....)
 
             $template = $this->templateView($renderview,$layouts); // pass the layouts and pass information for mastaring
@@ -100,18 +100,24 @@ class Router
     protected function layoutsView($layouts)
     {
         ob_start();
-        require_once Application::$Root_Dir."/Views/$layouts.php";
+        require_once Application::$Root_Dir."/Views/$layouts.blade.php";
         return ob_get_clean();
     }
 
     protected function renderOnlyView($view , $data)
     {
+        $err = new \app\Requests\Request;
+        if(!empty($err->error())){
+            $error = $err->error();
+        }else{
+            $error = null;
+        }
 
         foreach ($data as $key => $value) {
             $$key = $value;
         }
         ob_start();
-        require_once Application::$Root_Dir."/Views/$view.php";
+        require_once Application::$Root_Dir."/Views/$view.blade.php";
         return ob_get_clean();
     }
 
