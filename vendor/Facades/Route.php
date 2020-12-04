@@ -1,10 +1,9 @@
 <?php
 
 
-namespace Facade;
+namespace App\Vendor\Facades;
 
-
-use App\core\Application;
+use App\Vendor\Framework\Core\Application;
 
 class Route extends Facade
 {

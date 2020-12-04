@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\Vendor\Framework\Core;
 
 class Application
 {
@@ -13,19 +13,25 @@ class Application
 
     public function __construct($root_dir)
     {
-        // This is the esiest system of passing a class with application class which is easy.
+        /*
+         *  This is the esiest system of passing a class with application class which is easy.
+         */
         self::$app = $this;
         self::$Root_Dir = $root_dir;
         $this->request = new Request();
         $this->response = new Response();
-        //This is a system of variable passing with a class
+        /*
+         * This is a system of variable passing with a class
+         */
         $this->route = new Router($this->request);
         $this->blad = new Blade();
     }
 
     public function run()
     {
-        // It will throw the code of index which contain route->get/post data to the resolve methor of Router::route;
+      /*
+       * It will throw the code of index which contain route->get/post data to the resolve methor of Router::route;
+       */
       echo $this->route->resolve();
     }
 }

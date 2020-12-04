@@ -8,7 +8,7 @@ Login Your Existing Account
     <form class="container col-6 border" action="/login" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Username</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="Username">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">

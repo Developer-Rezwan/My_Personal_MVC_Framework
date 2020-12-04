@@ -98,3 +98,8 @@ OR,
 OR,
 <?= $name["First_name"]; ?>
 ```
+# Form Validation
+
+```
+
+```

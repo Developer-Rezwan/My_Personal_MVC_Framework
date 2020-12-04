@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Facade;
-
+namespace App\Vendor\Facades;
 
 class Facade
 {

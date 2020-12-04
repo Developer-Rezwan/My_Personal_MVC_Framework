@@ -1,10 +1,10 @@
 <?php
 
-namespace app\Requests;
+namespace App\Requests;
 
-use App\FormValidation\FormValidations;
+use App\Vendor\Framework\Form\validations;
 
-class Request extends FormValidations
+class Requests extends validations
 {
 
     public function rules(){

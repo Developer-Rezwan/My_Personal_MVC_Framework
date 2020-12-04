@@ -1,8 +1,10 @@
 <?php
 
 
-namespace app\Controllers;
+namespace App\Controllers;
 
+
+use App\Requests\LoginRequests;
 
 class LoginController extends Controller
 {
@@ -10,7 +12,7 @@ class LoginController extends Controller
         return $this->view('login');
     }
 
-    public function loginControl(){
-        print_r($_POST);
+    public function loginControl(LoginRequests $r){
+         print_r($r->all());
     }
 }
