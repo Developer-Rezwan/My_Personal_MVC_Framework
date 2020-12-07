@@ -2,8 +2,8 @@
 
 namespace App\Vendor\Framework\Core;
 
-use App\Requests\Requests as Another;
 use App\Vendor\Framework\Form\Validations;
+use App\Vendor\Framework\Form\Request as Another;
 
 
 class Router
@@ -93,7 +93,7 @@ class Router
         /*
          * View the layout or templacte From views/
          */
-            public function renderView($view , $data = [])
+      public function renderView($view , $data = [])
         {
 
         $renderview = $this->renderOnlyView($view,$data);
@@ -179,9 +179,9 @@ class Router
 
         private function templateView($template,$layouts)
         {
-            Application::$app->blad->bladeTemplate($template , $layouts);
-            Application::$app->blad->bladeLayouts($layouts);
-            return Application::$app->blad->bladeResolve();
+            Application::$app->blade->bladeTemplate($template , $layouts);
+            Application::$app->blade->bladeLayouts($layouts);
+            return Application::$app->blade->bladeResolve();
         }
 
 

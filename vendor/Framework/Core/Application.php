@@ -2,19 +2,20 @@
 
 namespace App\Vendor\Framework\Core;
 
+
 class Application
 {
-    public static $Root_Dir;
+    public static string $Root_Dir;
     public Request $request;
     public Router $route;
     public Response $response;
     public static Application $app;
-    public Blade $blad;
+    public Blade $blade;
 
     public function __construct($root_dir)
     {
         /*
-         *  This is the esiest system of passing a class with application class which is easy.
+         *  This is the easiest system of passing a class with application class which is easy.
          */
         self::$app = $this;
         self::$Root_Dir = $root_dir;
@@ -24,7 +25,7 @@ class Application
          * This is a system of variable passing with a class
          */
         $this->route = new Router($this->request);
-        $this->blad = new Blade();
+        $this->blade = new Blade();
     }
 
     public function run()

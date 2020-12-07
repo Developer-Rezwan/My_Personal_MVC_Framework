@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 
-use App\Requests\Requests;
+use App\Vendor\Framework\Form\Request;
 
 class RegisterController extends Controller
 {
@@ -12,13 +12,24 @@ class RegisterController extends Controller
         return $this->view('register');
     }
 
-    public function registerControl(Requests $request){
-        //print_r($request->only('email'));
-        $data = $request->only("email" , 'password' , 'username');
-        if($data){
-            return print_r($data);
-        }else{
-            return $this->view('register');
-        }
+    public function registerControl(Request $request){
+        $request->validate([
+            'email' => "required|unique|max:32",
+            'password' => "required|max:8|min:4|password",
+            'confirmPassword' => "required|match:password",
+            'phone' => "required|phone",
+            'username' => "required|max:8|unique",
+            'fname' => "required|max:8|unique",
+            'mname' => "required|max:8|unique",
+            'lname' => "required|max:8|unique",
+            'zip' => "required|min:4:max:8"
+        ]);
+
+       if( $request->all()){
+           print_r($request->all());
+       }else{
+          return $this->view("register");
+       };
+
     }
 }

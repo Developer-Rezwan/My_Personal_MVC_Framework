@@ -4,7 +4,8 @@
 namespace App\Controllers;
 
 
-use App\Requests\LoginRequests;
+
+use App\Vendor\Framework\Form\Request;
 
 class LoginController extends Controller
 {
@@ -12,7 +13,16 @@ class LoginController extends Controller
         return $this->view('login');
     }
 
-    public function loginControl(LoginRequests $r){
-         print_r($r->all());
+    public function loginControl(Request $r){
+         $r->validate([
+             'username'   =>   "required|min:6|max:20",
+             'password'   =>   "required|max:20|min:8"
+         ]);
+
+         if($r->all()){
+             print_r($r->all());
+         }else{
+             return $this->view("login");
+         }
     }
 }
