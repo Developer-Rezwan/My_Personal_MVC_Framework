@@ -1,6 +1,19 @@
 # Start the Application :
+####At First You Need to Connect With Your Database with your Application:
+Goto the ***.env*** file and write the database informations:
+```
+APP_NAME=xiaomi
+APP_URL=http://localhost:8080 (Your Domain path)
 
-Go to the ***public/*** folder and then open CMD or any command promt and Type
+DB_CONNECTION=mysql   (Your Database)
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=my_mvc    (Your Database Name)
+DB_USERNAME=root      (Your Database Username)
+DB_PASSWORD=          (Your Database Password)
+
+```
+Then , Go to the ***public/*** folder and then open CMD or any command promt and Type
 
 ```
   php -S localhost:8080 
@@ -167,7 +180,7 @@ phone    = phone number must be with country code like (+880)
 match    = What field you want check that are matched or not
 ```
 
-***You will able to see you data by the bellowing code:***<br><br>
+***You will be able to see your Form data by the bellowing code:***<br><br>
 
 If you want to see all the data which is come from the Form that you sent can see by .
 

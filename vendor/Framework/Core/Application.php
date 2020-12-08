@@ -11,21 +11,17 @@ class Application
     public Response $response;
     public static Application $app;
     public Blade $blade;
+    public Database $db;
 
     public function __construct($root_dir)
     {
-        /*
-         *  This is the easiest system of passing a class with application class which is easy.
-         */
         self::$app = $this;
         self::$Root_Dir = $root_dir;
         $this->request = new Request();
         $this->response = new Response();
-        /*
-         * This is a system of variable passing with a class
-         */
         $this->route = new Router($this->request);
         $this->blade = new Blade();
+        $this->db = new Database();
     }
 
     public function run()

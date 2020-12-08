@@ -9,7 +9,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Username</label>
-                    <input type="text" class="form-control <?= isset($error['username']) ? "is-invalid" : "" ?>"
+                    <input type="text" class="form-control <?= isset($error['username']) ? "is-invalid":"" ?>"
                            id="8 digit username" name="username">
                     <?= isset($error['username']) ? "<div class='text-danger font-italic'>" . $error['username'] . "</div>" : "" ?>
                 </div>
