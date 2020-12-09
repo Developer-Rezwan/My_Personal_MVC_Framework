@@ -1,5 +1,5 @@
 # Start the Application :
-####At First You Need to Connect A Database with your Application:
+###At First You Need to Connect A Database with your Application:
 Goto the ***.env*** file and write the database informations:
 ```
 APP_NAME=xiaomi
